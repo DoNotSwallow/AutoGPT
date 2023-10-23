@@ -34,6 +34,24 @@ def upload():
 
     return response.json()
 
+@app.route('/addTag', methods=['POST'])
+def addTag():
+    data = request.get_json()
+
+    // Send an add tag request to the Rose Rocket API.
+    response = requests.post('https://api.roserocket.com/addTag', data=data)
+
+    return response.json()
+
+@app.route('/removeTag', methods=['POST'])
+def removeTag():
+    data = request.get_json()
+
+    // Send a remove tag request to the Rose Rocket API.
+    response = requests.post('https://api.roserocket.com/removeTag', data=data)
+
+    return response.json()
+
 def lookupCustomerId(customer_id):
     // Implement the function to look up the 'customer_id'.
     pass
