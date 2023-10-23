@@ -1,4 +1,4 @@
-   from flask import Flask, request
+from flask import Flask, request
    import requests
 
    app = Flask(__name__)
@@ -12,6 +12,15 @@
 
        // Send a search request to the Rose Rocket API.
        response = requests.post('https://api.roserocket.com/search', params=params)
+
+       return response.json()
+
+   @app.route('/update', methods=['POST'])
+   def update():
+       data = request.get_json()
+
+       // Send an update request to the Rose Rocket API.
+       response = requests.post('https://api.roserocket.com/update', data=data)
 
        return response.json()
 
