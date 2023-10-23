@@ -1,29 +1,39 @@
 from flask import Flask, request
-   import requests
+import requests
 
-   app = Flask(__name__)
+app = Flask(__name__)
 
-   @app.route('/search', methods=['POST'])
-   def search():
-       params = request.get_json()
+@app.route('/search', methods=['POST'])
+def search():
+    params = request.get_json()
 
-       // Look up the 'customer_id' using another API call.
-       params['customer_id'] = lookupCustomerId(params['customer_id'])
+    // Look up the 'customer_id' using another API call.
+    params['customer_id'] = lookupCustomerId(params['customer_id'])
 
-       // Send a search request to the Rose Rocket API.
-       response = requests.post('https://api.roserocket.com/search', params=params)
+    // Send a search request to the Rose Rocket API.
+    response = requests.post('https://api.roserocket.com/search', params=params)
 
-       return response.json()
+    return response.json()
 
-   @app.route('/update', methods=['POST'])
-   def update():
-       data = request.get_json()
+@app.route('/update', methods=['POST'])
+def update():
+    data = request.get_json()
 
-       // Send an update request to the Rose Rocket API.
-       response = requests.post('https://api.roserocket.com/update', data=data)
+    // Send an update request to the Rose Rocket API.
+    response = requests.post('https://api.roserocket.com/update', data=data)
 
-       return response.json()
+    return response.json()
 
-   def lookupCustomerId(customer_id):
-       // Implement the function to look up the 'customer_id'.
-       pass
+@app.route('/upload', methods=['POST'])
+def upload():
+    orderId = request.form['orderId']
+    document = request.files['document']
+
+    // Send an upload request to the Rose Rocket API.
+    response = requests.post('https://api.roserocket.com/upload', data={'orderId': orderId}, files={'document': document})
+
+    return response.json()
+
+def lookupCustomerId(customer_id):
+    // Implement the function to look up the 'customer_id'.
+    pass
